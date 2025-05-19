@@ -257,7 +257,8 @@ CREATE TABLE `warning_info_202302` LIKE `warning_info`;
 - 优势：领域层专注业务逻辑，基础设施层封装技术细节（如数据库、消息队列），应用层协调领域服务，使系统更易扩展（如替换数据库不影响领域逻辑）。
 
 
-
+### 定期处理+mq生成者+消费者
+![img.png](img.png)
 
 
 ## 飞书地址：
@@ -267,4 +268,16 @@ https://wayawbott0.f.mioffice.cn/docx/doxk4x7QKsxsKyvazmNAjrQvuyd
 ## github
 
 git@github.com:newbirdcoming/xiaomi-work.git
+
+
+
+
+
+## 问题：
+1、对于数据库枚举的映射问题【解决】
+2、全局异常类的定义和使用（很多地方存在异常，如何统一管理）
+3、数据库的定义
+4、预警文档的读取
+
+
 
