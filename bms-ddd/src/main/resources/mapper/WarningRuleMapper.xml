@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xiaomi.infrastructure.persistence.mapper.WarningRuleMapper">
+    <!-- 修正 1：使用唯一的 resultMap ID，并正确映射 warning_rule 表字段 -->
+    <resultMap id="WarningRuleMap" type="com.xiaomi.domain.model.rule.WarningRule">
+        <id property="id" column="id"/> <!-- 修正：映射到正确的主键列 -->
+        <result property="ruleId" column="rule_id"/>
+        <result property="ruleName" column="rule_name"/> <!-- 添加缺失的字段映射 -->
+        <result property="batteryType" column="battery_type"
+                typeHandler="com.xiaomi.infrastructure.persistence.handler.BatteryTypeHandler"/>
+        <result property="conditionExpression" column="condition_expression"/>
+    </resultMap>
+
+    <insert id="insert">
+        insert into warning_rule (rule_id, rule_name, battery_type, condition_expression)
+        values (#{ruleId}, #{ruleName}, #{batteryType, typeHandler=com.xiaomi.infrastructure.persistence.handler.BatteryTypeHandler}, #{conditionExpression})
+    </insert>
+
+    <select id="getByRuleId" resultMap="WarningRuleMap"> <!-- 修正：使用 resultMap 而非 resultType -->
+        select * from warning_rule where rule_id = #{ruleId}
+    </select>
+
+    <select id="findByBatteryType" resultMap="WarningRuleMap"> <!-- 修正：使用 resultMap -->
+        SELECT * FROM warning_rule WHERE battery_type = #{description}
+    </select>
+</mapper>

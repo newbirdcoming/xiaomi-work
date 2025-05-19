@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="ad6cb8e9-7535-4e7f-873e-de1d6851d59c" name="变更" comment="">
+      <change afterPath="$PROJECT_DIR$/bms-frame-ddd/api/src/main/java/com/xiaomi/api/controller/WarningController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bms-frame-ddd/application/src/main/java/com/xiaomi/application/service/WarningAppService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bms-frame-ddd/domain/src/main/java/com/xiaomi/domain/model/signal/BatterySignal.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bms-frame-ddd/domain/src/main/java/com/xiaomi/domain/model/warning/RuleCondition.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bms-frame-ddd/domain/src/main/java/com/xiaomi/domain/model/warning/WarningRule.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bms-frame-ddd/infrastructure/src/main/java/com/xiaomi/infrastructure/persistence/entity/VehicleEntity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bms-frame-ddd/infrastructure/src/main/java/com/xiaomi/infrastructure/persistence/repository/VehicleRepositoryImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bms-frame-ddd/api/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/bms-frame-ddd/api/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bms-frame-ddd/application/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/bms-frame-ddd/application/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bms-frame-ddd/domain/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/bms-frame-ddd/domain/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bms-frame-ddd/domain/src/main/java/com/xiaomi/domain/DomainApplication.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bms-frame-ddd/domain/src/test/java/com/xiaomi/domain/DomainApplicationTests.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bms-frame-ddd/infrastructure/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/bms-frame-ddd/infrastructure/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bms-frame-ddd/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/bms-frame-ddd/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bms-frame-ddd/trigger/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bms-frame-ddd/trigger/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bms-frame-ddd/trigger/src/main/java/com/xiaomi/trigger/TriggerApplication.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bms-frame-ddd/trigger/src/test/java/com/xiaomi/trigger/TriggerApplicationTests.java" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Enum" />
+        <option value="AnnotationType" />
+        <option value="Interface" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/bms-frame-ddd" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="localRepository" value="D:\code\respository\mvn-respository\apache-maven-3.9.9\repository" />
+        <option name="mavenHome" value="D:/code/respository/mvn-respository/apache-maven-3.9.9" />
+        <option name="useMavenConfig" value="true" />
+        <option name="userSettingsFile" value="D:\code\respository\mvn-respository\apache-maven-3.9.9\conf\settings.xml" />
+      </MavenGeneralSettings>
+    </option>
+    <option name="importingSettings">
+      <MavenImportingSettings>
+        <option name="jdkForImporter" value="1.8" />
+      </MavenImportingSettings>
+    </option>
+  </component>
+  <component name="MavenRunner">
+    <option name="jreName" value="#JAVA_HOME" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
+  <component name="ProjectId" id="2xFvdtVtwIz1iTmKnEiaV3dbtcp" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "jdk.selected.JAVA_MODULE": "1.8",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "project.structure.last.edited": "项目",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "settings.editor.selected.configurable": "MavenSettings",
+    "spring.configuration.checksum": "1658f7f069a5f7461736e847f22a8ce9"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\13789\Desktop\homework-xiaomo\bms-ddd\src\main\java\com\xiaomi" />
+    </key>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="应用程序级" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="默认任务">
+      <changelist id="ad6cb8e9-7535-4e7f-873e-de1d6851d59c" name="变更" comment="" />
+      <created>1747546731209</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1747546731209</updated>
+      <workItem from="1747546734045" duration="1954000" />
+      <workItem from="1747548727594" duration="24357000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>

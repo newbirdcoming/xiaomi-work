@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xiaomi.infrastructure.persistence.mapper.VehicleMapper">
+    <!-- 修正 1：使用唯一的 resultMap ID，并正确映射 warning_rule 表字段 -->
+    <resultMap id="VehicleResultMap" type="com.xiaomi.domain.model.vehicle.VehicleInfo">
+        <id property="vid" column="vid"/>
+        <result property="carId" column="car_id"/>
+        <result property="batteryType" column="battery_type"
+                typeHandler="com.xiaomi.infrastructure.persistence.handler.BatteryTypeHandler"/>
+        <result property="totalMileage" column="total_mileage"/>
+        <result property="batteryHealth" column="battery_health"/>
+    </resultMap>
+
+    <select id="findByCarId" resultMap="VehicleResultMap">
+        SELECT * FROM vehicle_info WHERE car_id = #{carId}
+    </select>
+
+    <insert id="save">
+        INSERT INTO vehicle_info (vid, car_id, battery_type, total_mileage, battery_health)
+        VALUES (#{vid}, #{carId}, #{batteryType, typeHandler=com.xiaomi.infrastructure.persistence.handler.BatteryTypeHandler},
+                #{totalMileage}, #{batteryHealth})
+    </insert>
+</mapper>
+

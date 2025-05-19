@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xiaomi.infrastructure.persistence.mapper.BatterySignalMapper">
+<!--     修正 1：使用唯一的 resultMap ID，并正确映射 warning_rule 表字段 -->
+<!--        <resultMap id="BatterySignalResultMap" type="com.xiaomi.domain.model.vehicle.VehicleInfo">-->
+<!--            <id property="vid" column="vid"/>-->
+<!--            <result property="carId" column="car_id"/>-->
+<!--            <result property="batteryType" column="battery_type"-->
+<!--                    typeHandler="com.xiaomi.infrastructure.persistence.handler.BatteryTypeHandler"/>-->
+<!--            <result property="totalMileage" column="total_mileage"/>-->
+<!--            <result property="batteryHealth" column="battery_health"/>-->
+<!--        </resultMap>-->
+    <insert id="saveSign">
+        insert into battery_signal (car_id, statue, signal_data) values (#{carId}, #{statue}, #{signalData})
+    </insert>
+    <update id="updateSign">
+        update battery_signal set statue = #{statue}, signal_data = #{signalData} where id = #{id}
+    </update>
+    <delete id="deleteById">
+        delete from battery_signal where id = #{id}
+    </delete>
+    <select id="findById" resultType="com.xiaomi.domain.model.signal.BatterySignal">
+        select * from warning_rule where id = #{id}
+    </select>
+    <select id="selectByCarId" resultType="com.xiaomi.domain.model.signal.BatterySignal">
+       select * from battery_signal where car_id = #{carId}
+    </select>
+    <select id="selectById" resultType="com.xiaomi.domain.model.signal.BatterySignal">
+         select * from battery_signal where id = #{id}
+    </select>
+    <select id="selectBatch" resultType="com.xiaomi.domain.model.signal.BatterySignal">
+        select * from battery_signal
+        where statue = #{statue}
+        limit 0,#{limit}
+    </select>
+</mapper>
+
