@@ -4,6 +4,7 @@ import com.xiaomi.domain.model.rule.WarningRule;
 import com.xiaomi.domain.model.signal.BatterySignalDTO;
 import com.xiaomi.domain.model.vehicle.VehicleInfo;
 import com.xiaomi.domain.model.warning.WarningRecord;
+import com.xiaomi.domain.model.warning.WarningResult;
 import com.xiaomi.domain.repository.BatterySignalRepository;
 import com.xiaomi.domain.repository.VehicleRepository;
 import com.xiaomi.domain.repository.WarningRecordRepository;
@@ -136,13 +137,5 @@ public class WarningService {
         return records;
     }
 
-    @Data
-    @AllArgsConstructor
-    @NoArgsConstructor
-    public static class WarningResult {
-        Long carId;
-        String batteryType;
-        String warnName;
-        Integer warnLevel;
-    }
+
 }

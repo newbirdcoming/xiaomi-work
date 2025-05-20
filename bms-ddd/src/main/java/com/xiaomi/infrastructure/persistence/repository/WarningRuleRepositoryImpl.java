@@ -1,8 +1,10 @@
 package com.xiaomi.infrastructure.persistence.repository;
 
+import com.xiaomi.domain.dto.warning.WarningRequest;
 import com.xiaomi.domain.model.rule.WarningRule;
 import com.xiaomi.domain.model.vehicle.BatteryType;
 import com.xiaomi.domain.repository.WarningRuleRepository;
+import com.xiaomi.domain.service.WarningService;
 import com.xiaomi.infrastructure.persistence.mapper.WarningRuleMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -28,6 +30,17 @@ public class WarningRuleRepositoryImpl implements WarningRuleRepository {
         int res=warningRuleMapper.insert(warningRule);
         return res;
     }
+
+    @Override
+    public String getBatteryTypeByCarId(Long carId) {
+        return warningRuleMapper.getBatteryTypeByCarId(carId);
+    }
+
+//    @Override
+//    public List<WarningRule> findByCarId(Long carId) {
+//        return warningRuleMapper.findByCarId(carId);
+//    }
+
 
     @Override
     public List<WarningRule> findByRuleId(Integer ruleId) {

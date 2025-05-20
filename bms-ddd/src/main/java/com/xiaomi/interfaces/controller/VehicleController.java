@@ -32,7 +32,7 @@ public class VehicleController {
         if (byCarId.isPresent()) {
             return ResponseResult.success(byCarId.get());
         } else {
-            return ResponseResult.error(500, "车辆不存在");
+            return ResponseResult.error("500", "车辆不存在");
         }
     }
 
@@ -45,7 +45,7 @@ public class VehicleController {
             return  ResponseResult.success();
         }
         else
-            return ResponseResult.error(500, "保存失败");
+            return ResponseResult.error("500", "保存失败");
     }
 
 

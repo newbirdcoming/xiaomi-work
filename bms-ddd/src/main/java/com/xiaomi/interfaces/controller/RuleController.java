@@ -8,6 +8,8 @@ import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.xiaomi.application.service.WarningRuleApplicationService;
 import com.xiaomi.domain.model.rule.WarningRule;
 import com.xiaomi.domain.repository.WarningRuleRepository;
+import com.xiaomi.interfaces.exception.DMSException;
+import com.xiaomi.interfaces.exception.ExceptionType;
 import com.xiaomi.interfaces.vo.ResponseResult;
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,6 +17,8 @@ import org.springframework.transaction.interceptor.TransactionAspectSupport;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
+import static com.xiaomi.interfaces.exception.ExceptionType.SYSTEM_ERROR;
 
 @RequiredArgsConstructor
 @RestController
@@ -24,12 +28,12 @@ public class RuleController {
 
     private final WarningRuleApplicationService warningRuleApplicationService;
     @PostMapping("/addRule")
-    public ResponseResult<WarningRule> addRule(@RequestBody WarningRule rule) {
+    public ResponseResult addRule(@RequestBody WarningRule rule) {
         int insert = warningRuleRepository.insert(rule);
         if (insert>0)
-            return ResponseResult.success("规则新增成功");
+            return ResponseResult.success("新增成功");
         else
-            return ResponseResult.error("添加规则失败");
+            return ResponseResult.error("新增失败");
     }
 
 
@@ -50,7 +54,7 @@ public class RuleController {
      * @param
      * @return
      */
-    @PostMapping("/findRuleByBatteryType")
+    @GetMapping("/findRuleByBatteryType")
     public List<WarningRule> findRuleByBatteryType(@RequestParam String  batteryType) {
         List<WarningRule> byBatteryType = warningRuleRepository.findByBatteryType(batteryType);
         return byBatteryType;
@@ -86,6 +90,8 @@ public class RuleController {
             return ResponseResult.error("添加规则失败：" + e.getMessage());
         }
     }
+
+
 
 
 }

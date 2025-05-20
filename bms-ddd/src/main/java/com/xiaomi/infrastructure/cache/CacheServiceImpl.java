@@ -4,8 +4,8 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.xiaomi.domain.model.rule.WarningRule;
 import com.xiaomi.domain.model.signal.BatterySignalDTO;
+import com.xiaomi.domain.model.warning.WarningResult;
 import com.xiaomi.domain.service.WarningService;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -44,18 +44,23 @@ public class CacheServiceImpl implements CacheService {
     }
 
     @Override
-    public void cacheWarningResults(String carId, List<WarningService.WarningResult> results) {
-        String key = "warningResults::" + carId;
-        try {
-            String json = objectMapper.writeValueAsString(results);
-            redisTemplate.opsForValue().set(key, json, 1, TimeUnit.HOURS);
-        } catch (JsonProcessingException e) {
-            log.error("Failed to cache warning results", e);
-        }
+    public void cacheWarningResults(String carId, List<WarningResult> results) {
+
     }
 
+//    @Override
+//    public void cacheWarningResults(String carId, List<WarningResult> results) {
+//        String key = "warningResults::" + carId;
+//        try {
+//            String json = objectMapper.writeValueAsString(results);
+//            redisTemplate.opsForValue().set(key, json, 1, TimeUnit.HOURS);
+//        } catch (JsonProcessingException e) {
+//            log.error("Failed to cache warning results", e);
+//        }
+//    }
+
     @Override
-    public Optional<List<WarningService.WarningResult>> getWarningResults(String carId) {
+    public Optional<List<WarningResult>> getWarningResults(String carId) {
         return Optional.empty();
     }
 

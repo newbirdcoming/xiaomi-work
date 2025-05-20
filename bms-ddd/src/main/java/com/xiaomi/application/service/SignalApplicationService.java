@@ -12,8 +12,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @RequiredArgsConstructor
 public class SignalApplicationService {
-    private final BatterySignalRepository signalRepo;
-    private final CacheService cacheService;
     private final WarningService warningService;
 
 //   预警查询

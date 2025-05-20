@@ -38,7 +38,7 @@ public class BatterySignalRepositoryImpl implements BatterySignalRepository {
 
     @Override
     public void markAsProcessed(Long signalId) {
-        mapper.updateSign(signalId,true);
+        mapper.updateSignStatue(signalId,true);
     }
 
 
@@ -65,8 +65,8 @@ public class BatterySignalRepositoryImpl implements BatterySignalRepository {
     }
 
     @Override
-    public BatterySignal selectById(Long carId) {
-        return mapper.selectById(carId);
+    public BatterySignal selectById(Long id) {
+        return mapper.selectById(id);
     }
 
 

@@ -4,6 +4,7 @@ import com.xiaomi.domain.model.rule.WarningRule;
 import com.xiaomi.domain.model.signal.BatterySignalDTO;
 import com.xiaomi.domain.model.vehicle.BatteryType;
 import com.xiaomi.domain.model.vehicle.VehicleInfo;
+import com.xiaomi.domain.model.warning.WarningResult;
 import com.xiaomi.domain.repository.VehicleRepository;
 import com.xiaomi.domain.repository.WarningRecordRepository;
 import com.xiaomi.domain.repository.WarningRuleRepository;
@@ -58,7 +59,7 @@ class WarningServiceTest {
         when(ruleRepo.findByBatteryType(any())).thenReturn(Arrays.asList(rule));
 
         // When
-        List<WarningService.WarningResult> results = warningService.processSignal(signal);
+        List<WarningResult> results = warningService.processSignal(signal);
 
         // Then
         assertThat(results.isEmpty());

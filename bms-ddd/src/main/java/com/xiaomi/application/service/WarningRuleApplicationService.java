@@ -1,16 +1,20 @@
 package com.xiaomi.application.service;
 
 
+import com.xiaomi.domain.dto.warning.WarningRequest;
 import com.xiaomi.domain.factory.VehicleFactory;
 import com.xiaomi.domain.model.rule.WarningRule;
 import com.xiaomi.domain.repository.WarningRecordRepository;
 import com.xiaomi.domain.repository.WarningRuleRepository;
+import com.xiaomi.domain.service.WarningService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -32,6 +36,7 @@ public class WarningRuleApplicationService {
         //3.返回
         return byRuleId;
     }
+
 
 
 

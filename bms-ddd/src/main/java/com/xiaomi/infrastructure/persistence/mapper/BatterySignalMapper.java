@@ -36,10 +36,11 @@ public interface BatterySignalMapper {
 
     int deleteById(Long id);
 
-    BatterySignal selectById(Long carId);
+    BatterySignal selectById(Long id);
 
     List<BatterySignal> selectBatch(@Param("limit") int limit, @Param("statue") Boolean statue);
 
-    void updateSign(Long signalId, boolean b);
+    void updateSignStatue(@Param("id") Long id,@Param("statue") boolean statue);
+
 }
 

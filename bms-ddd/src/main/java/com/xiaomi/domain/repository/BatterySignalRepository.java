@@ -24,5 +24,5 @@ public interface BatterySignalRepository {
 
     List<BatterySignal> selectByCarId(Long carId);
 
-    BatterySignal selectById(Long carId);
+    BatterySignal selectById(Long id);
 }

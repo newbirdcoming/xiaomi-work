@@ -3,6 +3,7 @@ package com.xiaomi.infrastructure.cache;
 
 import com.xiaomi.domain.model.rule.WarningRule;
 import com.xiaomi.domain.model.signal.BatterySignalDTO;
+import com.xiaomi.domain.model.warning.WarningResult;
 import com.xiaomi.domain.service.WarningService;
 
 import java.util.List;
@@ -27,14 +28,17 @@ public interface CacheService {
      * @param carId 车架编号
      * @param results 预警结果列表
      */
-    void cacheWarningResults(String carId, List<WarningService.WarningResult> results);
+    void cacheWarningResults(String carId, List<WarningResult> results);
 
     /**
      * 从缓存获取预警结果
+     *
      * @param carId 车架编号
      * @return 预警结果列表
      */
-    Optional<List<WarningService.WarningResult>> getWarningResults(String carId);
+    default Optional<List<WarningResult>> getWarningResults(String carId) {
+        return null;
+    }
 
     /**
      * 缓存规则数据

@@ -1,7 +1,9 @@
 package com.xiaomi.domain.repository;
 
+import com.xiaomi.domain.dto.warning.WarningRequest;
 import com.xiaomi.domain.model.rule.WarningRule;
 import com.xiaomi.domain.model.vehicle.BatteryType;
+import com.xiaomi.domain.service.WarningService;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -29,5 +31,11 @@ public interface WarningRuleRepository {
      */
     int insert(WarningRule warningRule);
 
+    /**
+     * 根据carId获取电池类型
+     */
+    String getBatteryTypeByCarId(Long carId);
 
+
+//    List<WarningRule> findByCarId(Long carId);
 }

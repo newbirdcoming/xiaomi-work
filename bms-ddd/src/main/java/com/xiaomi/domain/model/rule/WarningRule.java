@@ -2,10 +2,13 @@ package com.xiaomi.domain.model.rule;
 
 import com.xiaomi.domain.model.signal.BatterySignalDTO;
 import com.xiaomi.domain.model.vehicle.BatteryType;
+import com.xiaomi.interfaces.exception.DMSException;
+import com.xiaomi.interfaces.exception.ExceptionType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,10 +16,13 @@ import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static com.xiaomi.interfaces.exception.ExceptionType.RULE_PARSE_FAIL;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 @Builder
+@Slf4j
 public class WarningRule {
     private Long id;
     private Integer ruleId;
@@ -45,16 +51,12 @@ public class WarningRule {
     }
 
     public static class RuleParser {
-        // 改进的正则表达式模式
+        // 修正后的正则表达式模式
         private static final Pattern CONDITION_PATTERN = Pattern.compile(
-                "(?:(?<signalType>电压|电流)差)?\\s*" +  // 可选的信号类型前缀
-                        "(?:" +
-                        "(?<range>(?<minValue>\\d+(?:\\.\\d+)?)\\s*(?:<=|≥)\\s*\\(?[Mm][Xx]－[Mm][Ii]\\)?\\s*(?:<|＜)\\s*(?<maxValue>\\d+(?:\\.\\d+)?))" +  // 区间模式
-                        "|(?<minOnly>(?<minOnlyValue>\\d+(?:\\.\\d+)?)\\s*(?:<=|≥)\\s*\\(?[Mm][Xx]－[Mm][Ii]\\)?)" +  // 大于等于模式
-                        "|(?<maxOnly>\\(?[Mm][Xx]－[Mm][Ii]\\)?\\s*(?:<|＜)\\s*(?<maxOnlyValue>\\d+(?:\\.\\d+)?))" +  // 小于模式
-                        ")" +
-                        "(?:\\s*[，,]\\s*报警等级\\s*[:：]\\s*(?<level>\\d+))?" +  // 可选的报警等级
-                        "|(?:(?<noAlertSignalType>电压|电流)差)?\\s*\\(?[Mm][Xx]－[Mm][Ii]\\)?\\s*(?:<|＜)\\s*(?<noAlertValue>\\d+(?:\\.\\d+)?)\\s*[，,]?\\s*不报警"  // 不报警模式
+                "(?:(?<minValue>\\d+(?:\\.\\d+)?)\\s*<=\\s*\\(?[Mm][xX]\\s*-\\s*[Mm][iI]\\)?" +
+                        "(?:\\s*<\\s*(?<maxValue>\\d+(?:\\.\\d+)?))?)" +
+                        "|(?:\\(?[Mm][xX]\\s*-\\s*[Mm][iI]\\)?\\s*<\\s*(?<maxOnly>\\d+(?:\\.\\d+)?))" +
+                        "\\s*[,，]\\s*(?:报警等级\\s*[:：]\\s*)?(?<level>\\d+|不报警)"
         );
 
         public static List<RuleCondition> parse(String expression) {
@@ -64,67 +66,63 @@ public class WarningRule {
                 return conditions;
             }
 
-            // 按分号分割多个条件
             String[] rules = expression.split(";");
 
-            for (int i = 0; i < rules.length; i++) {
-                String ruleStr = rules[i].trim();
+            for (String ruleStr : rules) {
+                ruleStr = ruleStr.trim();
                 if (ruleStr.isEmpty()) continue;
 
                 try {
                     RuleCondition rule = parseSingleRule(ruleStr);
-                    conditions.add(rule);
+                    if (rule != null) {
+                        conditions.add(rule);
+                    }
                 } catch (Exception e) {
-                  ;
+                    log.info("规则解析失败 "+ ruleStr);
+                    throw new DMSException(RULE_PARSE_FAIL.getErrorCode(), RULE_PARSE_FAIL.getErrorMessage()+e.getMessage());
                 }
             }
 
             return conditions;
         }
 
-        private static RuleCondition parseSingleRule(String ruleStr)  {
+        private static RuleCondition parseSingleRule(String ruleStr) {
             Matcher matcher = CONDITION_PATTERN.matcher(ruleStr);
-
+            if (!matcher.find()) {
+                System.err.println("Pattern not matched: " + ruleStr);
+                return null;
+            }
 
             RuleCondition rule = new RuleCondition();
+            rule.setSignalType("current"); // 默认为电流
 
-            // 处理信号类型 (默认为current)
-            String signalType = matcher.group("signalType");
-            if (signalType == null) {
-                signalType = matcher.group("noAlertSignalType");
-            }
-            rule.setSignalType(signalType != null && signalType.contains("电压") ? "voltage" : "current");
-
-            // 处理区间条件
-            if (matcher.group("range") != null) {
+            // 处理区间条件 (如 "3<=(Mx - Mi)<5")
+            if (matcher.group("minValue") != null) {
                 rule.setMinValue(Double.parseDouble(matcher.group("minValue")));
-                rule.setMaxValue(Double.parseDouble(matcher.group("maxValue")));
-
-                rule.setLevel(Integer.parseInt(matcher.group("level")));
+                rule.setMaxValue(matcher.group("maxValue") != null ?
+                        Double.parseDouble(matcher.group("maxValue")) : null);
             }
-            // 处理大于等于条件
-            else if (matcher.group("minOnly") != null) {
-                rule.setMinValue(Double.parseDouble(matcher.group("minOnlyValue")));
-                rule.setMaxValue(null);
-
-                rule.setLevel(Integer.parseInt(matcher.group("level")));
-            }
-            // 处理小于条件
+            // 处理单边条件 (如 "(Mx - Mi)<0.2")
             else if (matcher.group("maxOnly") != null) {
                 rule.setMinValue(null);
-                rule.setMaxValue(Double.parseDouble(matcher.group("maxOnlyValue")));
-                // 检查是否是不报警的情况
-                if (matcher.group("noAlertValue") != null) {
-                    rule.setLevel(-1); // 不报警
-                } else if (matcher.group("level") != null) {
-                    rule.setLevel(Integer.parseInt(matcher.group("level")));
-                }
+                rule.setMaxValue(Double.parseDouble(matcher.group("maxOnly")));
             }
-            // 处理不报警条件
-            else if (matcher.group("noAlertValue") != null) {
-                rule.setMinValue(null);
-                rule.setMaxValue(Double.parseDouble(matcher.group("noAlertValue")));
-                rule.setLevel(-1); // 不报警等级
+
+            // 处理报警等级
+            String levelStr = matcher.group("level");
+            if (levelStr != null) {
+                if ("不报警".equals(levelStr)) {
+                    rule.setLevel(-1);
+                } else {
+                    try {
+                        rule.setLevel(Integer.parseInt(levelStr));
+                    } catch (NumberFormatException e) {
+                        System.err.println("Invalid level format: " + levelStr);
+                        rule.setLevel(0); // 默认值
+                    }
+                }
+            } else {
+                rule.setLevel(0); // 默认值
             }
 
             return rule;

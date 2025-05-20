@@ -1,11 +1,19 @@
 package com.xiaomi.domain.dto.warning;
 
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class WarningRequest {
     @NotBlank(message = "车架编号不能为空")
     private Long carId;

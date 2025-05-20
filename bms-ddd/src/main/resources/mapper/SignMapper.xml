@@ -16,6 +16,9 @@
     <update id="updateSign">
         update battery_signal set statue = #{statue}, signal_data = #{signalData} where id = #{id}
     </update>
+    <update id="updateSignStatue">
+        update battery_signal set statue = #{statue} where id = #{id}
+    </update>
     <delete id="deleteById">
         delete from battery_signal where id = #{id}
     </delete>

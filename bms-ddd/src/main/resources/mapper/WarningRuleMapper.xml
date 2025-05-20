@@ -23,4 +23,10 @@
     <select id="findByBatteryType" resultMap="WarningRuleMap"> <!-- 修正：使用 resultMap -->
         SELECT * FROM warning_rule WHERE battery_type = #{description}
     </select>
+    <select id="processWarnings" resultType="com.xiaomi.domain.model.warning.WarningResult">
+
+    </select>
+    <select id="getBatteryTypeByCarId" resultType="java.lang.String">
+        SELECT battery_type FROM vehicle WHERE id = #{carId}
+    </select>
 </mapper>

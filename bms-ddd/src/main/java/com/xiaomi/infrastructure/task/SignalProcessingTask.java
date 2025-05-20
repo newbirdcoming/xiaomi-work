@@ -37,7 +37,6 @@ public class SignalProcessingTask {
                 try {
                     // 发送消息到MQ
                     producer.sendSignalMessage(signal);
-
                     // 只有发送成功才标记为已处理
                     signalRepo.markAsProcessed(signal.getId());
                     log.debug("信号处理成功, ID: {}", signal.getId());

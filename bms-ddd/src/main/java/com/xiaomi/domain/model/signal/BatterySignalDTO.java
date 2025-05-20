@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 import org.apache.commons.collections.MapUtils;
 
 import java.io.IOException;
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
@@ -54,6 +55,35 @@ public class BatterySignalDTO {
             throw new IllegalArgumentException("JSON解析失败", e);
         }
     }
+
+    public static BatterySignalDTO newfromJson(String jsonData) {
+        try {
+            ObjectMapper objectMapper = new ObjectMapper();
+            Map<String, Object> jsonMap = objectMapper.readValue(jsonData, HashMap.class);
+            Long id = MapUtils.getLong(jsonMap, "id");
+            Long carId = MapUtils.getLong(jsonMap, "carId");
+            Double mx = MapUtils.getDouble(jsonMap, "Mx");
+            Double mi = MapUtils.getDouble(jsonMap, "Mi");
+            Double ix = MapUtils.getDouble(jsonMap, "Ix");
+            Double ii = MapUtils.getDouble(jsonMap, "Ii");
+            Boolean processed = MapUtils.getBoolean(jsonMap, "processed");
+            LocalDateTime signalTime = MapUtils.getLong(jsonMap, "signalTime") != null ? LocalDateTime.ofEpochSecond(MapUtils.getLong(jsonMap, "signalTime"), 0, ZoneId.systemDefault().getRules().getOffset(Instant.now())) : null;
+            return BatterySignalDTO.builder()
+                    .id(id)
+                    .carId(carId)
+                    .mx(mx)
+                    .mi(mi)
+                    .ix(ix)
+                    .ii(ii)
+                    .processed(processed)
+                    .signalTime(signalTime)
+                    .build();
+        } catch (IOException e) {
+            throw new IllegalArgumentException("JSON解析失败", e);
+        }
+    }
+
+
 
     // 从数据库记录创建对象 将数据库查询结果使用
     public static BatterySignalDTO fromDbRecord(BatterySignal batterySignal) {

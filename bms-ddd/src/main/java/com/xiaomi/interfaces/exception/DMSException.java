@@ -1,27 +1,13 @@
-//package com.xiaomi.interfaces.exception;
-//public class DMSException extends RuntimeException {
-//    private int errorCode;
-//    private ExceptionType errorMessage;
-//
-//    public DMSException(int errorCode, ExceptionType errorMessage) {
-//        this.errorCode = errorCode;
-//        this.errorMessage = errorMessage;
-//    }
-//
-//    public DMSException(ExceptionType errorMessage) {
-//        this.errorCode = 500; // 默认错误码
-//        this.errorMessage = errorMessage;
-//    }
-//
-//    public int getErrorCode() {
-//        return errorCode;
-//    }
-//
-//    public ExceptionType getErrorMessage() {
-//        return errorMessage;
-//    }
-//
-//    public Object getField() {
-//        return errorMessage;
-//    }
-//}
+package com.xiaomi.interfaces.exception;
+public class DMSException extends RuntimeException {
+    private final String errorCode; // 业务错误码
+
+    public DMSException(String errorCode, String message) {
+        super(message); // 调用父类构造函数，存储错误消息
+        this.errorCode = errorCode; // 存储业务错误码
+    }
+
+    public String getErrorCode() {
+        return errorCode;
+    }
+}
